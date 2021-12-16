@@ -87,9 +87,9 @@ RUN export PIPX_HOME="/usr/local/py-utils" \
   && apt-get clean all \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && echo 'export PIPX_HOME="/usr/local/py-utils"' /root/.bashrc \
-  && echo 'export PIPX_BIN_DIR="${PIPX_HOME}/bin"' /root/.bashrc \
-  && echo 'export PATH=${PIPX_BIN_DIR}:$PATH' /root/.bashrc \
+  && echo 'export PIPX_HOME="/usr/local/py-utils"' >> /root/.bashrc \
+  && echo 'export PIPX_BIN_DIR="${PIPX_HOME}/bin"' >> /root/.bashrc \
+  && echo 'export PATH=${PIPX_BIN_DIR}:$PATH' >> /root/.bashrc \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Oh-My-ZSH ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && git clone --depth=1 "https://github.com/ohmyzsh/ohmyzsh.git" /root/.oh-my-zsh \
   && cp -Ra /root/.oh-my-zsh /home/vscode/.oh-my-zsh
