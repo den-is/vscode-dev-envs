@@ -1,0 +1,6 @@
+*
+
+!.dockerignore
+!**/Dockerfile
+!**/zshrc
+!**/vimrc
