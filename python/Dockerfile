@@ -61,6 +61,7 @@ RUN export PIPX_HOME="/usr/local/py-utils" \
         sudo \
         less \
         lsof \
+        ncdu \
         tree \
         rsync \
         unzip \
