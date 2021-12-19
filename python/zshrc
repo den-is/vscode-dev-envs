@@ -10,8 +10,9 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-alias ls=exa
+alias ls='exa -g'
 alias la='ls -laah'
+alias tree='tree -C'
 
 export EDITOR=vim
 export VISUAL=$EDITOR

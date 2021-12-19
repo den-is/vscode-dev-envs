@@ -25,3 +25,8 @@ Tools can be configured by:
       ],
     }
   ```
+
+## References
+https://code.visualstudio.com/docs/remote/containers
+https://github.com/microsoft/vscode-dev-containers
+https://code.visualstudio.com/docs/remote/linux#_remote-host-container-wsl-linux-prerequisites
