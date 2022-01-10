@@ -20,3 +20,5 @@ export VISUAL=$EDITOR
 export PIPX_HOME="/usr/local/py-utils"
 export PIPX_BIN_DIR="${PIPX_HOME}/bin"
 export PATH=${HOME}/.local/bin:${PIPX_BIN_DIR}:$PATH
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

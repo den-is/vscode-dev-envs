@@ -69,11 +69,13 @@ RUN export PIPX_HOME="/usr/local/py-utils" \
         dialog \
         strace \
         procps \
+        sqlite3 \
         dirmngr \
         fd-find \
         ripgrep \
         lsb-release \
         openssh-client \
+        zsh-syntax-highlighting \
         libc6 \
         libstdc++6 \
         locales \
