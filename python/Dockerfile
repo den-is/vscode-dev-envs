@@ -106,6 +106,8 @@ RUN cp /root/.zshrc /root/.vimrc /home/vscode/ \
   && cd /home/vscode/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
   && cd /root/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
   && usermod -s /bin/zsh vscode \
-  && usermod -s /bin/zsh root
+  && usermod -s /bin/zsh root \
+  && curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash \
+  && su - vscode -c "curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash"
 
 WORKDIR /root
