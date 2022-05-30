@@ -81,9 +81,9 @@ RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing $NODE_VERSION using NVM ~~~~~~~~~~~~~~~~~~~~~~~" \
   && su ${USERNAME} -c ". ${NVM_DIR}/nvm.sh && nvm install ${NODE_VERSION} --latest-npm && nvm clear-cache" \
   && export PATH=${NVM_DIR}/current/bin:${PATH} \
-  && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing eslint ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
+  && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing global packages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   # umask 0002 https://github.com/npm/npm/issues/1509
-  && su ${USERNAME} -c "umask 0002 ; npm install eslint tslint-to-eslint-config typescript" \
+  && su ${USERNAME} -c "umask 0002 ; npm install -g npm yarn eslint typescript" \
   && npm cache clean --force > /dev/null 2>&1 \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ git delta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
