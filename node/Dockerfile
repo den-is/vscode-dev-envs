@@ -59,11 +59,11 @@ RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && chmod 440 /etc/sudoers.d/${USERNAME} \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen \
-  && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Yarn setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /usr/share/keyrings/yarn-archive-keyring.gpg \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
-  && apt-get -yqq update \
-  && apt-get -y install --no-install-recommends yarn \
+#   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Yarn setup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
+#   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor > /usr/share/keyrings/yarn-archive-keyring.gpg \
+#   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
+#   && apt-get -yqq update \
+#   && apt-get -y install --no-install-recommends yarn \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Adding Node.js user ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && groupadd -g 1000 ${USERNAME} \
   && useradd -m -u 1000 -g 1000 -s /bin/bash ${USERNAME} \
