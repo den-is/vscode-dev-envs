@@ -2,11 +2,11 @@ FROM debian:bullseye
 
 ENV NODE_VERSION='lts/*' \
     USERNAME=node \
-    NVM_V="v0.39.1" \
+    NVM_V="v0.39.2" \
     NVM_DIR=/opt/nvm \
     NVM_SYMLINK_CURRENT=true \
     PATH=${NVM_DIR}/current/bin:${PATH} \
-    GIT_DELTA_V="0.13.0"
+    GIT_DELTA_V="0.14.0"
 
 RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
@@ -83,7 +83,7 @@ RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && export PATH=${NVM_DIR}/current/bin:${PATH} \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Installing global packages ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   # umask 0002 https://github.com/npm/npm/issues/1509
-  && su ${USERNAME} -c "umask 0002 ; npm install -g npm yarn eslint typescript" \
+  && su ${USERNAME} -c "umask 0002 ; npm install -g npm pnpm yarn eslint typescript" \
   && npm cache clean --force > /dev/null 2>&1 \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ git delta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \

@@ -1,6 +1,6 @@
 FROM python:3.10-bullseye
 
-ENV GIT_DELTA_V="0.12.1"
+ENV GIT_DELTA_V="0.14.0"
 
 RUN export PIPX_HOME="/usr/local/py-utils" \
   && export PIPX_BIN_DIR="${PIPX_HOME}/bin" \
