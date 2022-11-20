@@ -1,6 +1,7 @@
 # Python Development Environment
 
 ## Preinstalled python dev tools
+- pipx
 - black
 - isort
 - flake8
@@ -18,6 +19,38 @@
 - semgrep
 - pipenv
 - virtualenv
+
+Most of the above applications are installed in isolated environment using [pipx](https://github.com/pypa/pipx)
+
+## pyenv
+[PyEnv](https://github.com/pyenv/pyenv) is also available to manage multiple python versions.
+
+But don't forget to install python build requirements:
+```yaml
+- build-essential
+- make
+- gdb
+- lcov
+- pkg-config
+- libbz2-dev
+- libffi-dev
+- libgdbm-dev
+- libgdbm-compat-dev
+- liblzma-dev
+- libncurses5-dev
+- libreadline6-dev
+- libsqlite3-dev
+- libssl-dev
+- lzma
+- lzma-dev
+- tk-dev
+- uuid-dev
+- zlib1g-dev
+- llvm
+- xz-utils
+- libxml2-dev
+- libxmlsec1-dev
+```
 
 ## isort vscode configuration issues (Pre May 2022)
 As by [May 2022 Python in VSCode update](https://devblogs.microsoft.com/python/python-in-visual-studio-code-may-2022-release/) microsoft has updated black and isort setup and dependencies.
