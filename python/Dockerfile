@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye
+FROM python:3.11.0-bullseye
 
 ENV GIT_DELTA_V="0.14.0"
 
