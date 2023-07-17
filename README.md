@@ -27,6 +27,8 @@ Tools can be configured by:
   ```
 
 ## References
-[Visual Studio Code: Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
-[VSCode Remote Container Definitions](https://github.com/microsoft/vscode-dev-containers)
-[VSCode Remote host / container / WSL Linux prerequisites](https://code.visualstudio.com/docs/remote/linux#_remote-host-container-wsl-linux-prerequisites)
+- [Visual Studio Code: Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
+- [VSCode Remote Container Definitions](https://github.com/microsoft/vscode-dev-containers)
+- [VSCode Remote host / container / WSL Linux prerequisites](https://code.visualstudio.com/docs/remote/linux#_remote-host-container-wsl-linux-prerequisites)
+- [Development Containers specification](https://containers.dev/)
+- [Development Containers official repo](https://github.com/devcontainers)

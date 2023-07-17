@@ -1,6 +1,6 @@
-FROM python:3.11.0-bullseye
+FROM python:3.11.4-bullseye
 
-ENV GIT_DELTA_V="0.14.0"
+ENV GIT_DELTA_V="0.16.5"
 
 RUN export PIPX_HOME="/usr/local/py-utils" \
   && export PIPX_BIN_DIR="${PIPX_HOME}/bin" \
@@ -22,19 +22,9 @@ RUN export PIPX_HOME="/usr/local/py-utils" \
   && export USE_EMOJI=0 \
   && pip3 install --disable-pip-version-check --no-warn-script-location  --no-cache-dir --user pipx \
   && /tmp/pip-tmp/bin/pipx install --pip-args=--no-cache-dir pipx \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 \
-  && /tmp/pip-tmp/bin/pipx inject --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 flake8-bugbear \
-  && /tmp/pip-tmp/bin/pipx inject --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 flake8-flask \
-  && /tmp/pip-tmp/bin/pipx inject --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 flake8-isort \
-  && /tmp/pip-tmp/bin/pipx inject --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 flake8-comprehensions \
-  && /tmp/pip-tmp/bin/pipx inject --system-site-packages --pip-args '--no-cache-dir --force-reinstall' flake8 pep8-naming \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' pylint \
+  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' ruff \
   && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' black \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' isort \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' yapf \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' autopep8 \
   && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' mypy \
-  && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' pydocstyle \
   && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' bandit \
   && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' pipenv \
   && /tmp/pip-tmp/bin/pipx install --system-site-packages --pip-args '--no-cache-dir --force-reinstall' semgrep \
@@ -84,7 +74,12 @@ RUN export PIPX_HOME="/usr/local/py-utils" \
   && chmod 440 /etc/sudoers.d/vscode \
   && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
   && locale-gen \
-  && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
+  && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ git delta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
+  && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta-musl_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
+  # GIT_DELTA_V="0.15.1" has broken install of usual binary. had to switch to musl library
+  #4 122.6 The following packages have unmet dependencies:
+  #4 122.6  git-delta : Depends: libc6 (>= 2.34) but 2.31-13+deb11u5 is installed
+  # && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
   && dpkg -i git-delta.deb ; rm -rf git-delta.deb \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Cleanup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && apt-get clean all \
@@ -103,7 +98,7 @@ COPY vimrc /root/.vimrc
 RUN cp /root/.zshrc /root/.vimrc /home/vscode/ \
   && chmod 640 /root/.zshrc /root/.vimrc /home/vscode/.zshrc /home/vscode/.vimrc \
   && chown -R vscode:vscode /home/vscode \
-  && cd /home/vscode/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
+  && cd /home/vscode/.oh-my-zsh ; sudo -u vscode git repack -a -d -f --depth=1 --window=1 \
   && cd /root/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
   && usermod -s /bin/zsh vscode \
   && usermod -s /bin/zsh root \

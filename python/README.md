@@ -3,18 +3,8 @@
 ## Preinstalled python dev tools
 - pipx
 - black
-- isort
-- flake8
-  - flake8-bugbear
-  - flake8-flask
-  - flake8-isort
-  - flake8-comprehensions
-  - pep8-naming
-- pylint
-- yapf
-- autopep8
+- ruff
 - mypy
-- pydocstyle
 - bandit
 - semgrep
 - pipenv
@@ -52,6 +42,9 @@ But don't forget to install python build requirements:
 - libxmlsec1-dev
 ```
 
+## Dropped isort in favor of ruff (Pre July 2023)
+VSCode somehow stopped sorting imports using isort.
+vscode isort and black extensions still do not work and break workflows.
 ## isort vscode configuration issues (Pre May 2022)
 As by [May 2022 Python in VSCode update](https://devblogs.microsoft.com/python/python-in-visual-studio-code-may-2022-release/) microsoft has updated black and isort setup and dependencies.
 

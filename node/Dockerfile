@@ -2,11 +2,11 @@ FROM debian:bullseye
 
 ENV NODE_VERSION='lts/*' \
     USERNAME=node \
-    NVM_V="v0.39.2" \
+    NVM_V="v0.39.3" \
     NVM_DIR=/opt/nvm \
     NVM_SYMLINK_CURRENT=true \
     PATH=${NVM_DIR}/current/bin:${PATH} \
-    GIT_DELTA_V="0.14.0"
+    GIT_DELTA_V="0.16.5"
 
 RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
@@ -86,7 +86,11 @@ RUN sed -i '/^#/ ! s/$/ contrib non-free/' /etc/apt/sources.list \
   && su ${USERNAME} -c "umask 0002 ; npm install -g npm pnpm yarn eslint typescript" \
   && npm cache clean --force > /dev/null 2>&1 \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ git delta ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
-  && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
+  && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta-musl_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
+  # GIT_DELTA_V="0.15.1" has broken install of usual binary. had to switch to musl library
+  #4 122.6 The following packages have unmet dependencies:
+  #4 122.6  git-delta : Depends: libc6 (>= 2.34) but 2.31-13+deb11u5 is installed
+  # && curl -Ls https://github.com/dandavison/delta/releases/download/${GIT_DELTA_V}/git-delta_${GIT_DELTA_V}_amd64.deb -o git-delta.deb \
   && dpkg -i git-delta.deb ; rm -rf git-delta.deb \
   && echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Cleanup ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" \
   && apt-get clean all \
@@ -102,9 +106,10 @@ COPY vimrc /root/.vimrc
 RUN cp /root/.zshrc /root/.vimrc /home/${USERNAME}/ \
   && chmod 640 /root/.zshrc /root/.vimrc /home/${USERNAME}/.zshrc /home/${USERNAME}/.vimrc \
   && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME} \
-  && cd /home/${USERNAME}/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
+  && cd /home/${USERNAME}/.oh-my-zsh ; sudo -u ${USERNAME} git repack -a -d -f --depth=1 --window=1 \
   && cd /root/.oh-my-zsh ; git repack -a -d -f --depth=1 --window=1 \
   && usermod -s /bin/zsh ${USERNAME} \
-  && usermod -s /bin/zsh root
+  && usermod -s /bin/zsh root \
+  && echo "fund=false" >> /home/${USERNAME}/.npmrc
 
 WORKDIR /root
